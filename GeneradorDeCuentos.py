@@ -1,16 +1,13 @@
-# This is a sample Python script.
+from openai import OpenAI
+from Modelo import Modelo
+import os
 
-# Press Mayús+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+def main():
+    client = OpenAI()
+    key = os.getenv(
+        "")
+    model = Modelo(key,"gpt-3.5-turbo","https://api.openai.com/v1")
+    print(model.generate_response("Quiero que el género sea de aventuras y el protagonista sea un niño pelirrojo"))
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+if __name__ == "__main__":
+    main()
