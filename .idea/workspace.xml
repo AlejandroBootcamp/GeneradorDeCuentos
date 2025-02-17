@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="946beb0f-76be-4ed7-b586-c81857eaf0e4" name="Changes" comment="⭐ Proyecto funcional - no api key⭐" />
+    <list default="true" id="946beb0f-76be-4ed7-b586-c81857eaf0e4" name="Changes" comment="⭐ Proyecto funcional - no api key⭐">
+      <change beforePath="$PROJECT_DIR$/GeneradorDeCuentos.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeneradorDeCuentos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modelo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modelo.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
