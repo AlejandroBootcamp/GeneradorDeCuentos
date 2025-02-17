@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 import openai
 import base64
 from langchain_core.runnables.utils import Input
+=======
+from openai import OpenAI
+>>>>>>> e854c77ee4966239335293a029521aa2c65bf05b
 
 
 class Modelo:
@@ -8,6 +12,7 @@ class Modelo:
         self.api_key = api_key
         self.model = model
         self.base_url = base_url
+<<<<<<< HEAD
         openai.api_key = self.api_key
 
     def generate_tale(self, genero, nombre, texto):
@@ -19,6 +24,19 @@ class Modelo:
                  "content": f"You are a short story generator. Your job is to create brief children's stories. The genre of the story, the name of the protagonist, and their description will be provided in the user's prompt. The story should not exceed two paragraphs."},
 
                 {"role": "user", "content": f"I want the genre to be {genero}, the name of the protagonist to be {nombre}, and their description to be {descripcion}, and this."},
+=======
+        self.api = OpenAI(api_key=self.api_key, base_url=self.base_url)
+
+    def generate_tale(self,prompt):
+        cleaned_prompt = self.clean_prompt(prompt)
+        completion = self.api.chat.completions.create(  ##funcion openAI Petición POST
+            model= self.model,
+            messages=[
+                {"role": "system",
+                 "content": "Eres un generador de cuentos cortos.Vas a crear cuentos infantiles breves con un género y protagonista determinados. El máximo que debe ocupar el cuento son dos párrafos."},
+
+                {"role": "user", "content": cleaned_prompt},
+>>>>>>> e854c77ee4966239335293a029521aa2c65bf05b
             ],
             temperature=0.7,  ## aleatoriedad creatividad/respuesta
             max_tokens=4096,  ## limite
@@ -26,6 +44,7 @@ class Modelo:
 
         response = completion.choices[0].message.content
         return response
+<<<<<<< HEAD
 
     def generate_tale_image(self, prompt):
         aux = prompt + ". I want a Pixar 3D render cartoon image style."
@@ -64,6 +83,9 @@ class Modelo:
 
 
 
+=======
+    
+>>>>>>> e854c77ee4966239335293a029521aa2c65bf05b
     def clean_prompt(self,prompt):
         prompt = prompt.strip()
         prompt = prompt.capitalize()
