@@ -1,16 +1,25 @@
-# This is a sample Python script.
+from openai import OpenAI
+from Modelo import Modelo
+from Historia import Historia
+import os
 
-# Press Mayús+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+def main():
+    key = os.getenv(
+        "OPEN_API_KEY")
+    model_text = Modelo(key, "gpt-3.5-turbo", "https://api.openai.com/v1")
+    model_image = Modelo(key, "dall-e-3", "https://api.openai.com/v1")
 
+    descripcion = model_text.describe_image("dibujo.png")
+    protagonista = model_image.generate_tale_image(descripcion)
+    genero = input("Género de la historia:\n")
+    nombre = input("Nombre del protagonista:\n")
+    historia = model_text.generate_tale(genero, nombre, descripcion)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+    Historia(protagonista, historia)
 
+    print(descripcion)
+    print(protagonista)
+    print(historia)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+if __name__ == "__main__":
+    main()
