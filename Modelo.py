@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import openai
 import base64
 from langchain_core.runnables.utils import Input
