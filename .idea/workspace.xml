@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="946beb0f-76be-4ed7-b586-c81857eaf0e4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GeneradorDeCuentos.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeneradorDeCuentos.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modelo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modelo.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +48,7 @@
     "Python.script.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Alejandro",
+    "git-widget-placeholder": "Merging Alejandro",
     "ignore.virus.scanning.warn.message": "true"
   }
 }]]></component>
