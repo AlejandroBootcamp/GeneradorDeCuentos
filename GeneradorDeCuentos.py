@@ -1,8 +1,9 @@
 from openai import OpenAI
-from Modelo import Modelo
+from Modelo import ModelFactory
 from Historia import Historia
+from dotenv import load_dotenv
 import os
-
+load_dotenv()
 
 def main():
     # Obtener API Key de entorno y verificar si está definida
@@ -10,10 +11,10 @@ def main():
     if not key:
         print("Error: API key not found. Please set the OPEN_API_KEY environment variable.")
         return  # Salir si la API key no está configurada
-
+    factory = ModelFactory()
     # Crear modelos para texto e imágenes
-    model_text = Modelo(key, "gpt-3.5-turbo", "https://api.openai.com/v1")
-    model_image = Modelo(key, "dall-e-3", "https://api.openai.com/v1")
+    model_text = factory.create_model("text",key,"https://api.openai.com/v1")
+    model_image = factory.create_model("image",key,"https://api.openai.com/v1")
 
     # Verificar si el archivo de imagen existe antes de procesarlo
     image_path = "dibujo.png"

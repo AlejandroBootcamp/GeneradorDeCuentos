@@ -7,7 +7,6 @@
     <list default="true" id="946beb0f-76be-4ed7-b586-c81857eaf0e4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GeneradorDeCuentos.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeneradorDeCuentos.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Historia.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historia.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Modelo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modelo.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,6 +44,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.GeneradorDeCuentos.executor": "Run",
+    "Python.Modelo.executor": "Run",
     "Python.script.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
