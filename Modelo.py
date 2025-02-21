@@ -77,16 +77,27 @@ class TextModel(Modelo):
 
 class ImageModel(Modelo):
     def generate_tale_image(self, desc, prompt1, prompt2, prompt3):
+
+        estilo = (
+            "Ilustración digital en alta calidad con estilo de fantasía realista. "
+            "Colores vibrantes, iluminación cinematográfica y detalles bien definidos. "
+            "Trazos suaves y renderizado completo, sin apariencia de boceto. "
+            "Sombreado detallado con profundidad realista y texturas refinadas. "
+            "Inspirado en la animación clásica de Disney en 2D, con un acabado similar a pinturas digitales profesionales."
+        )
+
         prompts = [
-            "Descripción del personaje principal: " + desc + ". La introducción de la historia del personaje es: "+prompt1+"."
-                        "Ilustración de estilo clásico de fantasía, similar al de Disney, con sombreado, profundidad y texturas bien definidas."
-                        "No debe aparecer texto en la imagen. La imagen debe transmitir la esencia del personaje de manera visual, con una estética detallada y profesional.",
-            "Descripción del personaje principal: " + desc + ". La trama principal de la historia del personaje es: "+prompt2+"."
-                        "Ilustración de estilo clásico de fantasía, similar al de Disney, con sombreado, profundidad y texturas bien definidas."
-                        "No debe aparecer texto en la imagen. La imagen debe transmitir la esencia del personaje de manera visual, con una estética detallada y profesional.",
-            "Descripción del personaje principal: " + desc + ". El desenlace de la historia del personaje es: "+prompt3+"."
-                        "Ilustración de estilo clásico de fantasía, similar al de Disney, con sombreado, profundidad y texturas bien definidas."
-                        "No debe aparecer texto en la imagen. La imagen debe transmitir la esencia del personaje de manera visual, con una estética detallada y profesional."
+                f"Retrato de {desc}. En esta escena introductoria, el personaje se encuentra en {prompt1}. "
+                f"Su ropa y expresión reflejan su estado inicial. Fondo detallado acorde a la historia. {estilo} "
+                "No debe haber texto, letras ni símbolos en la imagen.",
+
+                f"Retrato de {desc}. Durante este punto clave de la historia, el personaje está experimentando {prompt2}. "
+                f"Su apariencia ha cambiado acorde a la evolución de la historia: sus ropas, expresión y postura reflejan lo que ha vivido. {estilo} "
+                "No debe haber texto, letras ni símbolos en la imagen.",
+
+                f"Retrato de {desc}. En la escena final de su historia, el personaje se encuentra en {prompt3}. "
+                f"Su vestimenta, expresión y actitud muestran el desenlace de su aventura. {estilo} "
+                "No debe haber texto, letras ni símbolos en la imagen."
                 ]
         images_urls = []
         try:
