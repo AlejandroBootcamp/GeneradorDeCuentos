@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 
+
 def main():
     # Obtener API Key de entorno y verificar si está definida
     key = os.getenv("OPEN_API_KEY")
@@ -36,7 +37,7 @@ def main():
 
     # Pedir datos al usuario
     genero = input("Género de la historia:")
-    nombre = input("Nombre del protagonista:")
+    nombre = input("Nombre del protagonista")
 
     # Generar la historia
     historia = model_text.generate_tale(genero, nombre, descripcion)
