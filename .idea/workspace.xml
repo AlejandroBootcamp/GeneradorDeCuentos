@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="946beb0f-76be-4ed7-b586-c81857eaf0e4" name="Changes" comment="⭐ Proyecto funcional - no api key⭐">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GeneradorDeCuentos.py" beforeDir="false" afterPath="$PROJECT_DIR$/GeneradorDeCuentos.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Historia.py" beforeDir="false" afterPath="$PROJECT_DIR$/Historia.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Modelo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Modelo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Streamlit.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Web.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +24,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="Alejandro" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -58,7 +57,7 @@
     "Python.script.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Merging pablo",
+    "git-widget-placeholder": "02e07e43",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/peblo/PycharmProjects/CuentosPablo"
   }
@@ -78,7 +77,6 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.12 (Prueba)" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -116,8 +114,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.GeneradorDeCuentos" />
         <item itemvalue="Python.firebase_bd" />
         <item itemvalue="Python.GeneradorDeCuentos" />
+        <item itemvalue="Python.firebase_bd" />
+        <item itemvalue="Python.firebase_bd" />
       </list>
     </recent_temporary>
   </component>
