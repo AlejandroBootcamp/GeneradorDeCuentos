@@ -1,12 +1,10 @@
 import openai
 import base64
-
-class Singleton(type):
-    _instances = {}
-    def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            cls._instances[cls] = super().__call__(*args, **kwargs)
-        return cls._instances[cls]
+import requests
+import base64
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 class ModelFactory:
     @staticmethod
@@ -19,29 +17,35 @@ class ModelFactory:
             case _:
                 raise ValueError(f"Unrecognized model type: {type}")
 
-class Modelo(metaclass=Singleton):
+class Modelo:
     def __init__(self,api_key, base_url):
         self.api_key = api_key
         self.base_url = base_url
-        openai.api_key = self.api_key
+        self.api_key = api_key
 
-    def clean_prompt(self,prompt): #Método para limpiar el prompt
-        prompt = prompt.strip()
-        prompt = prompt.capitalize()
-        return prompt
+    def handle_error(self, error):
+        if isinstance(error, requests.exceptions.RequestException):
+            return f"Error en la solicitud HTTP: {str(error)}"
+        elif isinstance(error, openai.error.OpenAIError):
+            return f"Error en la API de OpenAI: {str(error)}"
+        else:
+            return f"Error inesperado: {str(error)}"
 
 class TextModel(Modelo):
-    def generate_tale(self, genre, name, text):
-        completion = openai.chat.completions.create(  ##funcion openAI Petición POST
+
+    def generate_tale(self, genre, name, description):
+       try:
+        openai.api_key = self.api_key
+        completion = openai.chat.completions.create(
             model= "gpt-4-turbo",
             messages=[
                 {"role": "system",
                  "content": f"Eres un generador de historias cortas. Tu trabajo es crear cuentos infantiles breves. El género de la historia, el nombre del protagonista y la descripción del protagonista se proporcionarán en el prompt."
-                            f"La historia debe tener una introducción, un nudo y un desenlace, cada parte separada UNICAMENTE con saltos de linea, y deben de ser breves."},
-                {"role": "user", "content": f"Quiero que el género sea {genre}, el nombre del protagonista sea {name}. La descripción del protagonista es {text}."},
+                            f"La historia debe tener una introducción, un nudo y un desenlace, cada parte estará separada UNICAMENTE con saltos de linea."},
+                {"role": "user", "content": f"Quiero que el género sea {genre}, el nombre del protagonista sea {name}. La descripción del protagonista es {description}."},
             ],
-            temperature=0.7,  ## aleatoriedad creatividad/respuesta
-            max_tokens=4096,  ## limite
+            temperature=0.7,
+            max_tokens=4096,
         )
 
         response = completion.choices[0].message.content
@@ -50,7 +54,36 @@ class TextModel(Modelo):
 
         return parts
 
-    def describe_image(self, image_path):
+       except Exception as e:
+            return self.handle_error(e)
+
+    def describe_image(self, image_url=None, base64_image=None):
+        try:
+            if image_url:
+                image_obj = {"type": "image_url", "image_url": {"url": image_url}}
+            elif base64_image:
+                image_obj = {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{base64_image}"}}
+            else:
+                return "Error: No se proporcionó una URL de imagen ni una imagen en base64."
+
+            openai.api_key = self.api_key
+
+            response = openai.chat.completions.create(
+                model="gpt-4-turbo",
+                messages=[
+                    {"role": "system",
+                     "content": "Eres un asistente que transforma un dibujo de un niño en un personaje de un cuento."},
+                    {"role": "user",
+                     "content": f"Haz una descripción lo más detallada posible de este personaje {image_obj}"}
+                ],
+                max_tokens=100
+            )
+            return response.choices[0].message.content
+
+        except Exception as e:
+            return self.handle_error(e)
+
+    def describe_image_local(self, image_path):
         try:
             with open(image_path, "rb") as image_file:
                 base64_image = base64.b64encode(image_file.read()).decode("utf-8")
@@ -59,13 +92,16 @@ class TextModel(Modelo):
 
         image_obj = {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{base64_image}"}}
 
+        openai.api_key = self.api_key
+
         try:
             response = openai.chat.completions.create(
                 model="gpt-4-turbo",
                 messages=[
-                    {"role": "system", "content": "Eres un asistente que transforma un dibujo de un niño en un personaje de Disney. "},
+                    {"role": "system", "content": "Eres un asistente que describe imágenes de forma breve y precisa."},
                     {"role": "user", "content": [
-                        {"type": "text", "text": "Haz una descripción breve de este personaje usando solo 'KEYWORDS'. Palabras a evitar en la descripción: Dibujo, simple, trazos"},
+                        {"type": "text",
+                         "text": "Describe esta imagen brevemente en pocas palabras y de manera concisa."},
                         image_obj
                     ]}
                 ],
@@ -73,26 +109,43 @@ class TextModel(Modelo):
             )
             return response.choices[0].message.content
         except Exception as e:
-            return f"Error processing image: {e}"
+            return self.handle_error(e)
 
 class ImageModel(Modelo):
-    def generate_tale_image(self, desc, prompt1, prompt2, prompt3):
-        prompts = [
-            "Descripción del personaje principal: " + desc + ". La introducción de la historia del personaje es: "+prompt1+"."
-                        "Ilustración de estilo clásico de fantasía, similar al de Disney, con sombreado, profundidad y texturas bien definidas."
-                        "No debe aparecer texto en la imagen. La imagen debe transmitir la esencia del personaje de manera visual, con una estética detallada y profesional.",
-            "Descripción del personaje principal: " + desc + ". La trama principal de la historia del personaje es: "+prompt2+"."
-                        "Ilustración de estilo clásico de fantasía, similar al de Disney, con sombreado, profundidad y texturas bien definidas."
-                        "No debe aparecer texto en la imagen. La imagen debe transmitir la esencia del personaje de manera visual, con una estética detallada y profesional.",
-            "Descripción del personaje principal: " + desc + ". El desenlace de la historia del personaje es: "+prompt3+"."
-                        "Ilustración de estilo clásico de fantasía, similar al de Disney, con sombreado, profundidad y texturas bien definidas."
-                        "No debe aparecer texto en la imagen. La imagen debe transmitir la esencia del personaje de manera visual, con una estética detallada y profesional."
-                ]
-        images_urls = []
+    def generate_image(self, genre, desc):
+
+        estilo = (
+            "Ilustración digital en alta calidad con estilo de fantasía realista. "
+            "Colores vibrantes, iluminación cinematográfica y detalles bien definidos. "
+            "Trazos suaves y renderizado completo, sin apariencia de boceto. "
+            "Sombreado detallado con profundidad realista y texturas refinadas. "
+            "Inspirado en la animación clásica de Disney en 2D, con un acabado similar a pinturas digitales profesionales."
+        )
+
+        data = {
+            "prompt": f"Haz un personaje de {genre} siguiendo esta descripción: {desc}. La imagen generada quiero que tenga"
+                      f"este estilo: {estilo}",
+            "aspect_ratio": "1:1"
+        }
         try:
-            for prompt in prompts:
-                response = openai.images.generate(model="dall-e-3",prompt=prompt,size="1024x1024", n=1)
-                images_urls.append(response.data[0].url)
-            return images_urls
+            response = requests.post(
+                self.base_url,
+                json=data,
+                headers={"x-api-key": self.api_key}
+            )
+
+            if response.status_code == 200:
+                print(f"Response content type: {response.headers['Content-Type']}")
+                print(f"Content length: {response.headers['Content-Length']}")
+
+                if "image" in response.headers["Content-Type"]:
+                    return response.content
+                else:
+                    print("Error en la respuesta de la API externa:", response.text)
+                    return f"Error: {response.text}"
+
+            else:
+                print("Error HTTP:", response.status_code)
+                return f"Error HTTP: {response.status_code}"
         except Exception as e:
-            return f"Error generating image: {e}"
+            return self.handle_error(e)
