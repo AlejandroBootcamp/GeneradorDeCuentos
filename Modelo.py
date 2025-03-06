@@ -72,9 +72,12 @@ class TextModel(Modelo):
                 model="gpt-4-turbo",
                 messages=[
                     {"role": "system",
-                     "content": "Eres un asistente que transforma un dibujo de un niño en un personaje de un cuento."},
-                    {"role": "user",
-                     "content": f"Haz una descripción lo más detallada posible de este personaje {image_obj}"}
+                     "content": "Eres un asistente especializado en describir imágenes de manera detallada, incluyendo todos los elementos relevantes, colores, texturas, emociones y contextos visuales. La descripción debe ser lo más completa posible, sin omitir ningún detalle que ayude a generar una imagen precisa y mejorada."},
+                    {"role": "user", "content": [
+                        {"type": "text",
+                         "text": "Describe esta imagen brevemente en pocas palabras y de manera concisa."},
+                        image_obj
+                    ]}
                 ],
                 max_tokens=100
             )
@@ -98,7 +101,8 @@ class TextModel(Modelo):
             response = openai.chat.completions.create(
                 model="gpt-4-turbo",
                 messages=[
-                    {"role": "system", "content": "Eres un asistente que describe imágenes de forma breve y precisa."},
+                    {"role": "system",
+                     "content": "Eres un asistente especializado en describir imágenes de manera detallada, incluyendo todos los elementos relevantes, colores, texturas, emociones y contextos visuales. La descripción debe ser lo más completa posible, sin omitir ningún detalle que ayude a generar una imagen precisa y mejorada."},
                     {"role": "user", "content": [
                         {"type": "text",
                          "text": "Describe esta imagen brevemente en pocas palabras y de manera concisa."},
@@ -125,7 +129,7 @@ class ImageModel(Modelo):
         data = {
             "prompt": f"Haz un personaje de {genre} siguiendo esta descripción: {desc}. La imagen generada quiero que tenga"
                       f"este estilo: {estilo}",
-            "aspect_ratio": "1:1"
+            "aspect_ratio": "9:16"
         }
         try:
             response = requests.post(
