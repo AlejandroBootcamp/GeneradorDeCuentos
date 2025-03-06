@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 from fastapi import FastAPI,HTTPException, Form, File, UploadFile
 from typing import Optional
 import base64
+from fastapi.responses import StreamingResponse
+import io
 
 api = FastAPI()
 factory = ModelFactory()
@@ -36,17 +38,32 @@ async def describe_image(
     else:
         description = model_text.describe_image(image_url=image_url)
 
-    return {"description":description}
+    return {'description':description}
+
+class TaleRequest(BaseModel):
+    genre:str
+    name:str
+    description:str
 
 @api.post("/generate-tale/")
-async def generate_tale(genre:str, name:str, description:str):
+async def generate_tale(tale_request:TaleRequest):
+    genre = tale_request.genre
+    name = tale_request.name
+    description = tale_request.description
     model_text = factory.create_model("text", key_o, url_o)
     res = model_text.generate_tale(genre, name, description)
-    return {"tale":res}
+    return {'tale':res}
+
+class GenerateImageRequest(BaseModel):
+    genre:str
+    description:str
 
 @api.post("/generate-image/")
-async def generate_image(genre:str, desc:str):
+async def generate_image(generate_image_request:GenerateImageRequest):
+    genre = generate_image_request.genre
+    description = generate_image_request.description
     model_image = factory.create_model("image", key_s, url_s)
-    image_data = model_image.generate_image(genre, desc)
-    image_base64 = base64.b64encode(image_data).decode('utf-8')
-    return {"image": image_base64}
+    image_data = model_image.generate_image(genre, description)
+    image_stream = io.BytesIO(image_data)
+    #image_base64 = base64.b64encode(image_data).decode('utf-8')
+    return StreamingResponse(image_stream, media_type="image/png")

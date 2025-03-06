@@ -5,11 +5,9 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 
-
 def save_image(response_content, output_filename):
     with open(output_filename, 'wb') as f:
         f.write(response_content)
-
 
 def main():
 
@@ -49,8 +47,7 @@ def main():
     protagonista = model_image.generate_image(genero, descripcion)
     save_image(protagonista.content, "imagen.jpg")
 
-
-   #Historia("./imagen.jpg", historia)
+    #Historia("./imagen.jpg", historia)
 
     print("Descripción de la imagen:", descripcion)
     print("URL de la imagen generada:", protagonista)
