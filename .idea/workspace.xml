@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="946beb0f-76be-4ed7-b586-c81857eaf0e4" name="Changes" comment="Revertir cambios">
-      <change afterPath="$PROJECT_DIR$/.streamlit/config.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/login.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/pages/main2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/pages/register.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="946beb0f-76be-4ed7-b586-c81857eaf0e4" name="Changes" comment="Creación front del login y registro" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,19 +45,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.GeneradorDeCuentos.executor&quot;: &quot;Run&quot;,
-    &quot;Python.Historia.executor&quot;: &quot;Run&quot;,
-    &quot;Python.firebase_bd.executor&quot;: &quot;Run&quot;,
-    &quot;Python.script.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/alela/Desktop/Proyecto/GeneradorDeCuentos&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.GeneradorDeCuentos.executor": "Run",
+    "Python.Historia.executor": "Run",
+    "Python.firebase_bd.executor": "Run",
+    "Python.script.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Alejandro2",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/alela/Desktop/Proyecto/GeneradorDeCuentos"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\alela\Desktop\Proyecto\GeneradorDeCuentos" />
@@ -166,7 +159,15 @@
       <option name="project" value="LOCAL" />
       <updated>1739806470172</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Creación front del login y registro">
+      <option name="closed" value="true" />
+      <created>1741278306598</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1741278306598</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -184,6 +185,7 @@
     <MESSAGE value="Estructura general" />
     <MESSAGE value="⭐ Proyecto funcional ⭐" />
     <MESSAGE value="⭐ Proyecto funcional - no api key⭐" />
-    <option name="LAST_COMMIT_MESSAGE" value="⭐ Proyecto funcional - no api key⭐" />
+    <MESSAGE value="Creación front del login y registro" />
+    <option name="LAST_COMMIT_MESSAGE" value="Creación front del login y registro" />
   </component>
 </project>

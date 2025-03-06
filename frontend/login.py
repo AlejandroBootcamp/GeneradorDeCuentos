@@ -9,6 +9,7 @@ if "usuarios_registrados" not in st.session_state:
 if "formulario" not in st.session_state:
     st.session_state.formulario = "login"
 st.title("Login/Register")
+
 def formulario_registro():
     username = st.text_input("Nombre de Usuario")
     password = st.text_input("Contraseña", type="password")
@@ -25,18 +26,21 @@ def formulario_registro():
                 registrar(username, password)
         else:
             st.error("¡Las contraseñas no coinciden!")
+
 def formulario_login():
     username = st.text_input("Nombre de Usuario")
     password = st.text_input("Contraseña", type="password")
 
     if st.button("Iniciar sesión"):
         iniciar_sesion(username, password)
+
 def iniciar_sesion(username, password):
     if username in st.session_state.usuarios_registrados and st.session_state.usuarios_registrados[
         username] == password:
         st.success("¡Bienvenido!")
     else:
         st.error("¡Usuario o contraseña incorrectos!")
+
 def registrar(username, password):
     if username not in st.session_state.usuarios_registrados:
         st.session_state.usuarios_registrados[username] = password
@@ -45,7 +49,6 @@ def registrar(username, password):
     else:
         st.error("¡El nombre de usuario ya existe!")
 
-    # Cambio de formulario
 def validar_contraseña(password):
     if not re.search(r"[A-Z]", password):
         return "La contraseña debe contener al menos una mayúscula."
@@ -55,11 +58,11 @@ def validar_contraseña(password):
         return "La contraseña debe contener al menos un símbolo especial."
     return None
 
-
 if st.session_state.formulario == "login":
     formulario_login()
 elif st.session_state.formulario == "registro":
     formulario_registro()
+
 if st.button("¿No tienes cuenta? Regístrate aquí"):
     print(st.session_state.formulario)
     if st.session_state.formulario == "login":
