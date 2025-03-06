@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="946beb0f-76be-4ed7-b586-c81857eaf0e4" name="Changes" comment="⭐ Proyecto funcional - no api key⭐">
-      <change afterPath="$PROJECT_DIR$/Streamlit.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Web.py" afterDir="false" />
+    <list default="true" id="946beb0f-76be-4ed7-b586-c81857eaf0e4" name="Changes" comment="Revertir cambios">
+      <change afterPath="$PROJECT_DIR$/.streamlit/config.toml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/login.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/pages/main2.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/pages/register.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,7 +27,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Alejandro" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -35,12 +38,12 @@
     &quot;assignee&quot;: &quot;pablolagobergonpazos&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/AlejandroBootcamp/GeneradorDeCuentos.git&quot;,
-    &quot;accountId&quot;: &quot;6b204446-51d8-4877-aec3-44093837f5be&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/AlejandroBootcamp/GeneradorDeCuentos.git",
+    "accountId": "ca873dd6-f64d-45dc-aa23-212f101c7c66"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -49,21 +52,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.GeneradorDeCuentos.executor": "Run",
-    "Python.Historia.executor": "Run",
-    "Python.firebase_bd.executor": "Run",
-    "Python.script.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "02e07e43",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/peblo/PycharmProjects/CuentosPablo"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.GeneradorDeCuentos.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Historia.executor&quot;: &quot;Run&quot;,
+    &quot;Python.firebase_bd.executor&quot;: &quot;Run&quot;,
+    &quot;Python.script.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/alela/Desktop/Proyecto/GeneradorDeCuentos&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\alela\Desktop\Proyecto\GeneradorDeCuentos" />
       <recent name="C:\Users\peblo\PycharmProjects\GeneradorDeCuentos" />
     </key>
   </component>
