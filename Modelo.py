@@ -10,10 +10,10 @@ class ModelFactory:
     @staticmethod
     def create_model(type, api_key, base_url):
         match type:
-            case "text":
-                return TextModel(api_key, base_url)
-            case "image":
-                return ImageModel(api_key, base_url)
+            case "openai":
+                return OpenaiModel(api_key, base_url)
+            case "segmind":
+                return SegmindModel(api_key, base_url)
             case _:
                 raise ValueError(f"Unrecognized model type: {type}")
 
@@ -31,7 +31,7 @@ class Modelo:
         else:
             return f"Error inesperado: {str(error)}"
 
-class TextModel(Modelo):
+class OpenaiModel(Modelo):
 
     def generate_tale(self, genre, name, description):
        try:
@@ -115,7 +115,7 @@ class TextModel(Modelo):
         except Exception as e:
             return self.handle_error(e)
 
-class ImageModel(Modelo):
+class SegmindModel(Modelo):
     def generate_image(self, genre, desc):
 
         estilo = (
@@ -153,3 +153,17 @@ class ImageModel(Modelo):
                 return f"Error HTTP: {response.status_code}"
         except Exception as e:
             return self.handle_error(e)
+
+    def narrated_tale(self, prompt):
+        data = {
+            "prompt": f"{prompt}",
+            "voice": "Will"
+        }
+
+        response = requests.post(
+            self.base_url,
+            json=data,
+            headers={"x-api-key": self.api_key}
+        )
+
+        return response.content

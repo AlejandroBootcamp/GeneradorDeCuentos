@@ -1,13 +1,25 @@
 from openai import OpenAI
 from Modelo import ModelFactory
-from Historia import Historia
 from dotenv import load_dotenv
 import os
+import pygame
 load_dotenv()
 
 def save_image(response_content, output_filename):
     with open(output_filename, 'wb') as f:
         f.write(response_content)
+
+def save_audio(audio_content, filename="output.mp3"):
+    with open(filename, "wb") as audio_file:
+        audio_file.write(audio_content)
+    print(f"Audio saved as {filename}")
+
+def play_audio(filename="output.mp3"):
+    pygame.mixer.init()
+    pygame.mixer.music.load(filename)
+    pygame.mixer.music.play()
+    while pygame.mixer.music.get_busy():
+        continue
 
 def main():
 
@@ -20,38 +32,16 @@ def main():
 
     factory = ModelFactory()
 
-    model_text = factory.create_model("text",key1,"https://api.openai.com/v1")
+    model_text = factory.create_model("segmind",key2,"https://api.segmind.com/v1/tts-eleven-labs")
 
-    model_image = factory.create_model("image",key2,"https://api.segmind.com/v1/luma-photon-txt-2-img")
+    x = model_text.narrated_tale("¡Perfecto! El hecho de que puedas guardar el archivo como MP3 en local y reproducirlo confirma que el problema no está en la generación del archivo de audio, sino en cómo se está manejando la respuesta en tu backend o cómo se está enviando al frontend. Vamos a enfocarnos en cómo puedes modificar tu backend para devolver el archivo de audio de manera que Streamlit pueda reproducirlo correctamente.")
 
-    image_path = "nina.jpg"
+    save_audio(x)
 
-    if not os.path.exists(image_path):
-        print(f"Error: Image file '{image_path}' not found.")
-        return
+    play_audio("output.mp3")
 
-    descripcion = model_text.describe_image_local(image_path)
-    print(descripcion)
-    if not descripcion:
-        print("Error: Could not generate image description.")
-        return
 
-    genero = input("Género de la historia: ")
-    nombre = input("Nombre del protagonista: ")
-
-    historia = model_text.generate_tale(genero, nombre, descripcion)
-    if not historia:
-        print("Error: Could not generate story.")
-        return
-
-    protagonista = model_image.generate_image(genero, descripcion)
-    save_image(protagonista.content, "imagen.jpg")
-
-    #Historia("./imagen.jpg", historia)
-
-    print("Descripción de la imagen:", descripcion)
-    print("URL de la imagen generada:", protagonista)
-    print("Historia generada:", historia)
+    print(x)
 
 if __name__ == "__main__":
     main()
