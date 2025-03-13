@@ -34,11 +34,14 @@ async def describe_image(
     if image_file:
         image_data = await image_file.read()
         base64_image = base64.b64encode(image_data).decode("utf-8")
-        description = model_text.describe_image(base64_image=base64_image)
+        result = model_text.describe_image(base64_image=base64_image)
+        print(result["description"])
+        print(result["tokens_used"])
     else:
-        description = model_text.describe_image(image_url=image_url)
+        result = model_text.describe_image(image_url=image_url)
 
-    return {'description':description}
+    return result
+
 
 class TaleRequest(BaseModel):
     genre:str

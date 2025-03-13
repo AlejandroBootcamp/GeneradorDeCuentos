@@ -37,19 +37,29 @@ def main():
                 if nombre_protagonista and genero:
                     if imagen:
                         image_data = imagen.getvalue()
-                        files = {'image_file':image_data}
-                        description_response = requests.post(f"{API_URL}/describe-image/", files=files)
+                        files = {'image_file': image_data}
+                        result = requests.post(f"{API_URL}/describe-image/", files=files)
+                        if result.status_code == 200:
+                            # Solo intentamos convertir la respuesta a JSON si la solicitud fue exitosa
+                            response_json = result.json()
+                            description_response = response_json.get("description")
+                            tokens_used = response_json.get("tokens_used", 0)
+                        else:
+                            st.warning(f"Error en la solicitud. Código de estado: {result.status_code}")
+                            st.write(result.text)  # Ver el contenido completo de la respuesta para depuración
 
                         if description_response.status_code == 200:
-                            description = description_response.json().get("description", "")
+                            response_json = description_response.json()
+                            description = response_json.get("description", "")
+                            #tokens_used = response_json.get("tokens_used", 0)  # Obtener los tokens usados
+                            st.write(f"Tokens utilizados para describir la imagen: {tokens_used}")  # Mostrar tokens
 
                             image_response = requests.post(f"{API_URL}/generate-image/", json={
                                 'genre': genero,
-                                'description':description
+                                'description': description
                             })
 
                             if image_response.status_code == 200:
-
                                 tale_response = requests.post(f"{API_URL}/generate-tale/", json={
                                     'genre': genero,
                                     'name': nombre_protagonista,
@@ -64,14 +74,18 @@ def main():
                                         with st.container():
                                             image_data = image_response.content
                                             image_stream = io.BytesIO(image_data)
-                                            st.image(image_stream, caption="Imagen del protagonista", use_container_width=False, width=200)
+                                            st.image(image_stream, caption="Imagen del protagonista",
+                                                     use_container_width=False, width=200)
                                             st.write("\n\n".join(tale))
                                     else:
                                         st.warning("Error de generación.")
                         else:
-                            st.warning("No se ha subido ninguna imagen.")
+                            st.warning("Error al describir la imagen.")
                     else:
-                        st.warning("Completa todos los campos antes.")
+                        st.warning("No se ha subido ninguna imagen.")
+                else:
+                    st.warning("Completa todos los campos antes.")
+
 
 if __name__ == "__main__":
     main()
