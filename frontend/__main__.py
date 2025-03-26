@@ -2,6 +2,7 @@ import requests
 import streamlit as st
 import io
 import base64
+import json
 
 API_URL = "http://127.0.0.1:8000"
 
@@ -15,22 +16,21 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-color: #efe9d6;
+        background-color: #C5D9E8;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-col1, col2 = st.columns([2,3])
-
-with col1:
-    st.write("")
+col1, col2, col3 = st.columns([1, 3, 1])
 with col2:
-    st.image("./static/images/logo.png", width=300)
+    st.image("./static/images/logo2.png", width=900)
 
 def main():
 
+    if 'qa_pairs' not in st.session_state:
+        st.session_state.qa_pairs = {}
     if "historia_generada" not in st.session_state:
         st.session_state.historia_generada = False
     if "tale" not in st.session_state:
@@ -39,8 +39,12 @@ def main():
         st.session_state.imagen = None
     if "image_response" not in st.session_state:
         st.session_state.image_response = None
+    if "preguntas_generadas" not in st.session_state:
+        st.session_state.preguntas_generadas = None
+    if "respuestas_preguntas" not in st.session_state:
+        st.session_state.respuestas_preguntas = []
 
-    col1, col2, col3 = st.columns(3, gap="large", border=True)
+    col1, col2, col3= st.columns(3, gap="large", border=True)
 
     with st.container():
         with col1:
@@ -52,6 +56,53 @@ def main():
         with col2:
             st.markdown("### Información del protagonista")
             nombre_protagonista = st.text_input("Nombre del protagonista:")
+
+            with st.expander("⚙️ Opciones avanzadas", expanded=False):
+                st.markdown("### Test de personalidad del protagonista")
+
+                if st.button("Generar preguntas"):
+                    with st.spinner("Generando preguntas..."):
+                        pregunta_response = requests.post(f"{API_URL}/request-questions/")
+                        if pregunta_response.status_code == 200:
+                            preguntas = pregunta_response.json().get('questions', [])
+
+                            if isinstance(preguntas, str):
+                                try:
+                                    preguntas = json.loads(preguntas)
+                                except:
+                                    preguntas = [preguntas] if preguntas else []
+
+                            st.session_state.preguntas_generadas = preguntas
+                            st.session_state.respuestas_preguntas = [''] * len(preguntas)
+                            st.session_state.respuestas_enviadas = False
+                        else:
+                            st.warning("Hubo un error al generar las preguntas.")
+
+                if st.session_state.preguntas_generadas and not st.session_state.respuestas_enviadas:
+                    st.markdown("## Responde a las siguientes preguntas")
+                    st.markdown("Las preguntas que dejes en blanco no se tendrán en cuenta\n")
+                    for i, pregunta in enumerate(st.session_state.preguntas_generadas):
+
+                        def update_respuesta(i=i):
+                            st.session_state.respuestas_preguntas[i] = st.session_state[f"respuesta_{i}"]
+
+                        st.text_input(
+                            f"Pregunta {i + 1}: {pregunta}",
+                            value=st.session_state.respuestas_preguntas[i],
+                            key=f"respuesta_{i}",
+                            on_change=update_respuesta
+                        )
+
+                    if st.button("Enviar respuestas"):
+                        respuestas_validas = {
+                            st.session_state.preguntas_generadas[i]: respuesta
+                            for i, respuesta in enumerate(st.session_state.respuestas_preguntas)
+                            if respuesta.strip()
+                        }
+                        st.session_state.qa_pairs = respuestas_validas
+                        st.session_state.respuestas_enviadas = True
+                        st.success("Respuestas guardadas correctamente!")
+                    print(st.session_state.respuestas_preguntas)
 
         with col3:
             st.markdown("### Selecciona el género de la historia")
@@ -79,7 +130,8 @@ def main():
                                 tale_response = requests.post(f"{API_URL}/generate-tale/", json={
                                     'genre': genero,
                                     'name': nombre_protagonista,
-                                    'description': description
+                                    'description': description,
+                                    'qa_pairs' : st.session_state.qa_pairs
                                 })
 
                                 if tale_response.status_code == 200:

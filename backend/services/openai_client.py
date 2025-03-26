@@ -49,6 +49,18 @@ class OpenAIClient:
         except Exception as e:
             return self.handle_error(e)
 
+    def request_questions(self, message, model="gpt-4-turbo", temperature=0.7, max_tokens=4096):
+        try:
+            completion = openai.chat.completions.create(
+                model=model,
+                messages=message,
+                temperature=temperature,
+                max_tokens=max_tokens
+            )
+            return completion.choices[0].message.content
+        except Exception as e:
+            raise self.handle_error(e)
+
     def handle_error(self, error):
         if isinstance(error, requests.exceptions.RequestException):
             return f"Error en la solicitud HTTP: {str(error)}"

@@ -1,9 +1,7 @@
-
-
 class ModelFactory:
     _registry = {}
 
-    #Esto permite un registro dinamico de modelos.
+    #Esto permite un registro dinamico de modelos. TODO::Ver lo de los imports ? preguntar
     @classmethod
     def register(cls, model_type: str):
         def wrapper(model_class):
