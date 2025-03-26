@@ -10,7 +10,6 @@ COPY frontend/ /app/frontend
 COPY __main__.py /app/
 COPY requirements.txt /app/
 COPY entrypoint.sh /app/
-COPY apis.txt /app/.env
 
 # Install dependencies :: (RUN es solo cuando se genera el container)
 RUN pip install -r requirements.txt
